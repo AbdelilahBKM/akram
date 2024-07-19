@@ -15,7 +15,7 @@ export default function Product_section() {
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {produits.map((produit) => (
-            <div className="rounded-lg bg-card shadow-md">
+            <div key={produit.id} className="rounded-lg bg-card shadow-md">
               <Image
                 src={produit.image}
                 alt="Product 1"

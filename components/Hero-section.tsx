@@ -18,10 +18,10 @@ export default function Component() {
                         Ameublement à Marrakech
                         </h2>
                     <h1 className="mb-4 text-3xl font-bold tracking-tight text-orange-400 sm:text-4xl md:text-5xl">
-                        Découvrez l'Élégance Marocaine
+                        Découvrez l&apos;Élégance Marocaine
                     </h1>
                     <p className="mb-6 text-primary md:text-lg">
-                        Plongez dans l'univers du mobilier marocain authentique et raffiné. Découvrez notre collection exclusive,
+                        Plongez dans l&apos;univers du mobilier marocain authentique et raffiné. Découvrez notre collection exclusive,
                         mélange subtil de tradition et de modernité.
                     </p>
                     <Button className="inline-flex rounded-none border-none items-center justify-center bg-orange-500 px-6 py-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-orange-500/90 focus:outline-none focus:ring-1 focus:ring-primary/50">
