@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-
+import Image from "next/image"
 export default function Inspirations() {
   return (
     <section className="flex flex-col md:flex-row items-center justify-between py-20 px-8 md:px-16 bg-muted">
@@ -16,7 +16,7 @@ export default function Inspirations() {
           <div className="absolute bottom-0 left-0 bg-background/50 text-foreground px-4 py-2 rounded-tr-md">
             <span className="font-bold">01</span> - <span>salon</span> - <span>confortable</span>
           </div>
-          <img src="/placeholder.svg" alt="Salon 1" className="w-full h-full object-cover" width={800} height={600} />
+          <Image src="/" alt="Salon 1" className="w-full h-full object-cover" width={800} height={600} />
         </div>
         <div className="flex justify-center mt-4">
           <Button variant="ghost" size="icon" className="rounded-full">

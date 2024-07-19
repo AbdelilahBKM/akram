@@ -1,4 +1,5 @@
 import Collections from "@/components/collection-cards";
+import Contact_info from "@/components/contact-info";
 import HeroSection from "@/components/Hero-section";
 import Inspirations from "@/components/Inspiration";
 import Product_section from "@/components/products-section";
@@ -10,7 +11,7 @@ export default function Home() {
       <HeroSection />
       <Collections />
       <Product_section />
-      <Inspirations />
+      <Contact_info />
     </main>
   );
 }
