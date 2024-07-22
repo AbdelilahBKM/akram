@@ -12,13 +12,13 @@ export default function Component() {
                 <Link href="/" className="hover:underline underline-offset-4" prefetch={false}>
                     Acceuil
                 </Link>
-                <Link href="/" className="hover:underline underline-offset-4" prefetch={false}>
+                <Link href="/#boutique" className="hover:underline underline-offset-4" prefetch={false}>
                     boutique
                 </Link>
-                <Link href="/" className="hover:underline underline-offset-4" prefetch={false}>
+                <Link href="/#about" className="hover:underline underline-offset-4" prefetch={false}>
                     à propos
                 </Link>
-                <Link href="/" className="hover:underline underline-offset-4" prefetch={false}>
+                <Link href="/#contact" className="hover:underline underline-offset-4" prefetch={false}>
                     Contact
                 </Link>
             </nav>
@@ -32,7 +32,7 @@ export default function Component() {
             </div>
         </header>
 
-    )
+    );
 }
 
 function MountainIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
