@@ -23,12 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
-        <header className="w-full flex items-center justify-center my-3">
-            <Header />
-        </header>
+      <body className={montserrat.className}>        
         {children}
-        <Footer />
       </body>
     </html>
   );

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Contact_info() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto py-12 md:py-16 text-slate-600">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto py-12 md:py-16 text-slate-600">
       <div className="space-y-4 flex flex-col justify-between">
         <div className="space-y-1">
           <h2 className="text-2xl font-bold">Joignez-Nous:</h2>
@@ -46,7 +46,7 @@ export default function Contact_info() {
           className="w-full h-full object-cover"
         />
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -12,7 +12,7 @@ export default function Component() {
                 <Link href="/" className="hover:underline underline-offset-4" prefetch={false}>
                     Acceuil
                 </Link>
-                <Link href="/#boutique" className="hover:underline underline-offset-4" prefetch={false}>
+                <Link href="/#product" className="hover:underline underline-offset-4" prefetch={false}>
                     boutique
                 </Link>
                 <Link href="/#about" className="hover:underline underline-offset-4" prefetch={false}>

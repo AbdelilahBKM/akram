@@ -5,8 +5,13 @@ export interface Produits{
     image: string;
     prix: string;
     category: 'salon' | 'tissus' | 'literie' | 'voilage';
-
 };
+
+export interface Categorie {
+  id: number;
+  nom: string;
+  description: string;
+}
 
 
 export const produits: Produits[] = [

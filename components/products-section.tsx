@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Product_section() {
   return (
-    <section className="bg-background py-12 px-4 md:px-6">
+    <section  className="bg-background py-12 px-4 md:px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="mb-8 flex justify-center">
           <h2 className="text-2xl font-bold text-slate-700">Nos produits</h2>
