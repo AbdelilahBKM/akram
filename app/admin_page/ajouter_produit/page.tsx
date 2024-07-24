@@ -36,6 +36,7 @@ import { Categorie, Produits } from '@/types/Produit';
 import { AlertCircle, Terminal, X } from 'lucide-react';
 
 
+
 export default function AjouterProduit() {
   const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
   const router = useRouter();
@@ -49,6 +50,7 @@ export default function AjouterProduit() {
   const formRef = useRef<HTMLFormElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [imageName, setImageName] = useState<string | null>(null);
+  const [imageData, setImageData] = useState<string>('');
   const [listCategories, setListCategories] = useState<Categorie[]>();
   const [nomProd, setNomProd] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -100,7 +102,7 @@ export default function AjouterProduit() {
     setCategorie(Number(value));
   };
 
-  const HandleFileSubmit = async () => {
+  const UploadImage = async () => {
     setError('');
     if (file) {
       const formData = new FormData();
@@ -120,8 +122,9 @@ export default function AjouterProduit() {
           throw new Error('Upload failed');
         }
 
-        const result = await response.json();
-        setImageName(result.imageName);
+        const data = await response.json();
+        setImageName(data.imageName);
+        setImageData(data.imageData);
 
       } catch (error) {
         console.error('Error uploading image:', error);
@@ -136,6 +139,7 @@ export default function AjouterProduit() {
     setNotification('');
     setIsLoading(true);
     if (nomProd !== '' && description !== '' && prixProduit !== 0 && imageName !== null && categorie !== 0) {
+      await UploadImage();
       try {
         const response = await fetch('http://localhost:8000/api/produits', {
           method: 'POST',
@@ -146,6 +150,7 @@ export default function AjouterProduit() {
           body: JSON.stringify({
             'nom_produit': nomProd,
             'image_produits': imageName,
+            'image_data': imageData,
             'description': description,
             'prix': prixProduit,
             'categorie': categorie
@@ -166,7 +171,6 @@ export default function AjouterProduit() {
 
           // Optionally redirect or update UI
           // For example:
-          router.back();
         } else {
           const errorResult = await response.json();
           console.error('Error adding product:', errorResult);
@@ -206,7 +210,6 @@ export default function AjouterProduit() {
               <Label htmlFor="image">Image du produit</Label>
               <div className="flex items-center gap-2">
                 <Input id="image" type="file" onChange={handleFileChange} />
-                <Button onClick={HandleFileSubmit} variant="ghost">télécharger</Button>
               </div>
             </div>
             <div className="grid gap-2 mb-4">

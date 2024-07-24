@@ -127,7 +127,7 @@ export default function Component() {
                                             {listProduits?.map((prod) => (
                                                 <TableRow key={prod.id}>
                                                     <TableCell>
-                                                        <Image src={'/images/' + prod.image_produits} alt="product1" width={50} height={50} className="w-20 h-fit rounded-sm" />
+                                                        <Image src={`data:image/png;base64,${prod.image_data}`} alt={prod.nom_produit} width={50} height={50} className="w-20 h-fit rounded-sm" />
                                                     </TableCell>
                                                     <TableCell className="font-medium">{prod.nom_produit}</TableCell>
                                                     <TableCell>{prod.description}</TableCell>
