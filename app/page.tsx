@@ -1,7 +1,6 @@
 import Collections from "@/components/collection-cards";
 import Contact_info from "@/components/contact-info";
 import HeroSection from "@/components/Hero-section";
-import Inspirations from "@/components/Inspiration";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/Header";
 import Product_section from "@/components/products-section";

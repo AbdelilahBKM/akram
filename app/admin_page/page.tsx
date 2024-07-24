@@ -1,20 +1,17 @@
 "use client"
 import Admin_page from "@/components/admintwo";
 import LoginPage from "@/components/login";
-import { useState, useEffect } from "react";
+import { RootState } from "@/store/redux";
+import { useSelector } from "react-redux";
 
 export interface IAdmin {
     email: string;
     password: string;
 }
 
-const admin: IAdmin = {
-    email: 'akram@admin.ma',
-    password: 'admin2024'
-}
 
 export default function page() {
-    const [isAuth, setAuth] = useState(true);
+    const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
     return (
         <div>
             {
@@ -22,7 +19,6 @@ export default function page() {
                     <Admin_page />
                     :
                     <LoginPage />
-
             }
         </div>
     );

@@ -1,6 +1,9 @@
 import Admin_Header from "@/components/layout/admin_header"
 import Footer from "@/components/layout/footer"
+import StoreProvider from "@/store/storeProvider"
+import dynamic from 'next/dynamic';
 
+// const NoSSR = dynamic(() => import('../components/no-ssr'), { ssr: false });
 export default function DashboardLayout({
   children, // will be a page or nested layout
 }: {
@@ -8,10 +11,10 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="relative">
-      <section>
-        <Admin_Header />
+      <StoreProvider>
+        <Admin_Header/>
         {children}
-      </section>
+      </StoreProvider>
     </div>
   )
 }
