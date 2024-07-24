@@ -19,7 +19,6 @@ export default function page() {
                     <Admin_page />
                     :
                     <LoginPage />
-
             }
         </div>
     );

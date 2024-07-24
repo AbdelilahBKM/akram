@@ -1,9 +1,63 @@
-import { Button } from "@/components/ui/button";
+"use client"
 import Navigate_categories from "./navigate-categories";
-import { produits } from "@/types/Produit";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/rootReducer";
+import { Categorie, Produits } from "@/types/Produit";
 
 export default function Product_section() {
+    const [listProduits, setListProduits] = useState<Produits[]>([]);
+    const [listCategories, setListCategories] = useState<Categorie[]>([]);
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true); // Set isClient to true after component mounts
+
+        const fetchCategories = async () => {
+            try {
+                console.log('Fetching categories...');
+                const response = await fetch('http://127.0.0.1:8000/api/categories', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                console.log('Categories response:', response);
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                const data = await response.json();
+                console.log('Categories data:', data);
+                setListCategories(data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        const fetchProducts = async () => {
+            try {
+                console.log('Fetching products...');
+                const response = await fetch('http://127.0.0.1:8000/api/produits', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                console.log('Products response:', response);
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                const data = await response.json();
+                console.log('Products data:', data);
+                setListProduits(data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+        fetchCategories();
+        fetchProducts();
+    }, []);
   return (
     <section  className="bg-background py-12 px-4 md:px-6">
       <div className="container mx-auto max-w-6xl">
@@ -14,10 +68,10 @@ export default function Product_section() {
           <Navigate_categories />
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {produits.map((produit) => (
+          {listProduits.map((produit) => (
             <div key={produit.id} className="rounded-lg bg-card shadow-md">
               <Image
-                src={produit.image}
+                src={'/images/' +  produit.image_produits}
                 alt="Product 1"
                 width={400}
                 height={300}
@@ -25,7 +79,7 @@ export default function Product_section() {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-card-foreground">
-                  {produit.nom}
+                  {produit.nom_produit}
                 </h3>
                 <p className="mb-4 text-sm text-muted-foreground">
                   {produit.description}

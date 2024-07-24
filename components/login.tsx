@@ -4,53 +4,59 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "@/store/authReducer";
-import { useRouter } from "next/navigation";
-import type { RootState } from "@/store/rootReducer";
+
+
 import {
     Alert,
     AlertDescription,
     AlertTitle,
 } from "@/components/ui/alert";
-
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 import { AlertCircle } from "lucide-react";
+
+
 export default function LoginPage() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useDispatch();
+
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError('');
         setIsLoading(true);
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/login/", {
-                method: "POST",
+            const loginResponse = await fetch("http://localhost:8000/api/login", {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
             });
-            if (response.ok) {
-                const data = await response.json();
+
+            if (loginResponse.ok) {
+                const data = await loginResponse.json();
                 const token = data.token;
                 console.log(token);
-                dispatch(login(token));
+                dispatch(login({ access: token }));
                 setIsLoading(false);
-
             } else {
-                const data = await response.json();
                 setError("Non autorisé");
                 setIsLoading(false);
             }
+
         } catch (error) {
             console.error("An error occurred during login:", error);
-            setError("Une erreur s'est produite lors de la connexion. ");
+            setError("Une erreur s'est produite lors de la connexion.");
             setIsLoading(false);
         }
     };
+
 
     return (
         <div className="grid h-screen w-full grid-cols-1 lg:grid-cols-2 bg-orange-100">
@@ -66,7 +72,17 @@ export default function LoginPage() {
                     <div className="space-y-4">
                         <div className="space-y-2 mb-7">
                             <Label htmlFor="email" className="text-base">Email</Label>
-                            <Input value={email} onChange={(e) => setEmail(e.target.value)} className="border border-orange-500" id="email" type="email" placeholder="m@example.com" required />
+                            <Input
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                                className="border border-orange-500"
+                                id="email"
+                                type="email"
+                                placeholder="m@example.com"
+                                required
+                            />
                         </div>
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
@@ -75,10 +91,19 @@ export default function LoginPage() {
                                     Mot de passe oublié?
                                 </Link>
                             </div>
-                            <Input value={password} onChange={(e) => setPassword(e.target.value)} className="border border-orange-500" id="password" type="password" placeholder="mot de passe" required />
+                            <Input
+                                value={password}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                }}
+                                className="border border-orange-500"
+                                id="password"
+                                type="password"
+                                placeholder="mot de passe"
+                                required
+                            />
                         </div>
-                        {
-                            error !== '' &&
+                        {error && (
                             <Alert variant="destructive">
                                 <AlertCircle className="h-4 w-4" />
                                 <AlertTitle>Erreur:</AlertTitle>
@@ -86,11 +111,9 @@ export default function LoginPage() {
                                     {error}
                                 </AlertDescription>
                             </Alert>
-                        }
-                        <Button disabled={isLoading ? true : false} type="submit" className="w-full h-[48px] rounded-none bg-white text-orange-400 border transition-colors border-orange-400 hover:bg-orange-400 hover:text-white">
-                            {
-                                isLoading ? 'veuillez patienter ...' : 'Sign in'
-                            }
+                        )}
+                        <Button disabled={isLoading} type="submit" className="w-full h-[48px] rounded-none bg-white text-orange-400 border transition-colors border-orange-400 hover:bg-orange-400 hover:text-white">
+                            {isLoading ? 'veuillez patienter ...' : 'Sign in'}
                         </Button>
                     </div>
                 </div>
