@@ -278,7 +278,7 @@ export default function Component() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>En êtes-vous absolument sûr ?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Cette action ne peut pas être annulée. Cela remplacera les anciennes informations sur l'article par les nouvelles.
+                    Cette action ne peut pas être annulée. Cela remplacera les anciennes informations sur l&apos;article par les nouvelles.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

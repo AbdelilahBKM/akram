@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import Link from "next/link"
+
 
 export default function Component() {
     return (
@@ -24,9 +26,11 @@ export default function Component() {
                         Plongez dans l&apos;univers du mobilier marocain authentique et raffiné. Découvrez notre collection exclusive,
                         mélange subtil de tradition et de modernité.
                     </p>
+                    <Link href={"/#contact"}>
                     <Button className="inline-flex rounded-none border-none items-center justify-center bg-orange-500 px-6 py-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-orange-500/90 focus:outline-none focus:ring-1 focus:ring-primary/50">
                         Contactez Nous
                     </Button>
+                    </Link>
                 </div>
             </div>
         </section>

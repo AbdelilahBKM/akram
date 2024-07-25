@@ -1,82 +1,35 @@
-import Link from "next/link"
-import { Card, CardHeader, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { JSX, SVGProps } from "react"
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { JSX, SVGProps } from "react";
 
-export default function Component() {
+export default function About_us() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link href="#" className="flex items-center justify-center" prefetch={false}>
-          <BrainIcon className="h-6 w-6" />
-          <span className="sr-only">Bilim AI</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            Features
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            Testimonials
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            Pricing
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            Contact
-          </Link>
-        </nav>
+      <header className="bg-orange-200 px-4 py-6 md:px-6 md:py-8">
+        <div className="container mx-auto max-w-5xl">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center text-orange-500">
+            <h1 className="uppercase text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              à propos de nous
+            </h1>
+            <p className="max-w-[700px] text-lg md:text-xl">
+              Découvrez notre histoire, nos valeurs et notre mission. Nous
+              sommes passionnés par ce que nous faisons et nous nous engageons à
+              offrir le meilleur à nos clients.
+            </p>
+          </div>
+        </div>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Bilim AI: Your Exam Prep Companion
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Unlock your full potential with our cutting-edge AI-powered exam preparation platform. Personalized
-                    learning, adaptive practice, and expert guidance - all in one place.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Link
-                    href="#"
-                    className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    Try for Free
-                  </Link>
-                  <Link
-                    href="#"
-                    className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    Learn More
-                  </Link>
-                </div>
-              </div>
-              <img
-                src="/placeholder.svg"
-                width="600"
-                height="600"
-                alt="Bilim AI Hero"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full"
-              />
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-orange-100">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Key Features</div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Elevate Your Exam Preparation</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-orange-400">
+                  Notre Expertise en Tissus et Tapisserie
+                </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Bilim AI offers a comprehensive suite of features to help you conquer your exams with confidence.
+                  Notre équipe est composée de professionnels qualifiés et
+                  passionnés par leur métier.
                 </p>
               </div>
             </div>
@@ -85,40 +38,105 @@ export default function Component() {
                 <ul className="grid gap-6">
                   <li>
                     <div className="grid gap-1">
-                      <h3 className="text-xl font-bold">Personalized Learning</h3>
-                      <p className="text-muted-foreground">
-                        Our AI-powered adaptive learning algorithm creates a personalized study plan tailored to your
-                        strengths and weaknesses.
+                      <h3 className="text-xl font-bold text-orange-400">
+                        Tapissiers expérimentés
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        Notre Equipe comprend des tapissiers expérimentés qui
+                        possèdent une solide expertise dans le domaine de la
+                        tapisserie et de l&apos;ameublement. Ils ont une
+                        connaissance approfondie des techniques de rembourrage,
+                        de couture et de fabrication de meubles, acquise grâce à
+                        des années d&apos;expérience dans le métier.
                       </p>
                     </div>
                   </li>
                   <li>
                     <div className="grid gap-1">
-                      <h3 className="text-xl font-bold">Adaptive Practice</h3>
-                      <p className="text-muted-foreground">
-                        Bilim AI provides a vast bank of practice questions and simulated exams that adjust in
-                        difficulty based on your performance.
+                      <h3 className="text-xl font-bold text-orange-400">
+                        Artisans qualifiés
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        Nos tapissiers sont des artisans qualifiés qui
+                        maîtrisent les compétences nécessaires pour travailler
+                        avec différents types de matériaux, de tissus et de
+                        meubles. Ils sont capables de réaliser des
+                        restaurations, des réparations et des créations sur
+                        mesure, en respectant les normes de qualité les plus
+                        élevées.
                       </p>
                     </div>
                   </li>
                   <li>
                     <div className="grid gap-1">
-                      <h3 className="text-xl font-bold">Expert Guidance</h3>
-                      <p className="text-muted-foreground">
-                        Access detailed performance analytics, personalized feedback, and expert tips to optimize your
-                        preparation strategy.
+                      <h3 className="text-xl font-bold text-orange-400">
+                        Créativité et sens du design
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        Nos tapissiers allient créativité et sens du design. Ils
+                        sont capables de comprendre les préférences et les
+                        besoins des clients et de traduire leurs idées en des
+                        pièces d&apos;ameublement uniques et esthétiquement
+                        attrayantes. Ils peuvent recommander des choix de
+                        tissus, de couleurs et de styles pour créer des pièces
+                        harmonieuses qui correspondent aux goûts individuels de
+                        chaque client.
                       </p>
                     </div>
                   </li>
                 </ul>
               </div>
-              <img
-                src="/placeholder.svg"
-                width="550"
-                height="310"
-                alt="Bilim AI Features"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-              />
+              <div className="flex flex-col justify-center space-y-4">
+                <ul className="grid gap-6">
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold text-orange-400">
+                        Travail sur mesure
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        Notre Equipe est spécialisée dans la création de meubles
+                        sur mesure, adaptés aux besoins spécifiques de chaque
+                        client. Que ce soit pour un salon, canapé, un fauteuil,
+                        une chaise, une chambre a coucher, un sommier, une tête
+                        de lit, un voilage, un store ou tout autre type de
+                        mobilier, nous travaillons en étroite collaboration avec
+                        nos clients pour comprendre leurs attentes et créer des
+                        pièces uniques qui répondent à leurs exigences.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold text-orange-400">
+                        Service personnalisé
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        On offre un service personnalisé et attentif à chaque
+                        client. On écoute attentivement les besoins et les
+                        préférences de chaque client et on s&apos;assure de
+                        fournir des solutions adaptées à leurs attentes. On est
+                        disponible pour répondre aux questions, donner des
+                        conseils et guider les clients tout au long du
+                        processus.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold text-orange-400">
+                        Souci du détail et qualité du travail
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        On accorde une grande attention aux détails et on
+                        s&apos;efforce de fournir un travail de haute qualité.
+                        Chaque étape du processus, du rembourrage à la finition,
+                        est réalisée avec précision et minutie pour garantir un
+                        résultat final impeccable.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
@@ -126,150 +144,68 @@ export default function Component() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Testimonials</div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">What Our Users Say</h2>
+                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
+                Témoignages
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  Ce que disent nos clients
+                </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Hear from students who have transformed their exam performance with Bilim AI.
+                  Découvrez ce que nos clients disent de la transformation de leur intérieur
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-              <Card className="bg-muted p-6 shadow-sm">
+              <Card className="bg-orange-100 p-6 shadow-sm">
                 <CardHeader>
                   <div className="flex items-center space-x-4">
-                    <Avatar>
-                      <AvatarImage src="/placeholder-user.jpg" />
-                      <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
                     <div>
-                      <p className="text-sm font-medium leading-none">John Doe</p>
-                      <p className="text-sm text-muted-foreground">Medical Student</p>
+                      <p className="text-sm font-medium leading-none">
+                        Leïla A.
+                      </p>
+                      <p className="text-sm text-muted-foreground">Marrakech</p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <blockquote className="text-muted-foreground">
-                    "Bilim AI has been a game-changer for my exam preparation.\n The personalized learning and adaptive
-                    practice have\n significantly improved my test scores. Highly recommended!"
+                  &quot;Une expérience exceptionnelle avec Akram Ameublement. Leur
+                    large gamme de tissus et leur savoir-faire en tapisserie ont
+                    donné un nouveau souffle à notre maison. Le tout avec un
+                    service client impeccable. Merci pour cette belle
+                    transformation !&quot;
                   </blockquote>
                 </CardContent>
               </Card>
-              <Card className="bg-muted p-6 shadow-sm">
+              <Card className="bg-orange-100 p-6 shadow-sm">
                 <CardHeader>
                   <div className="flex items-center space-x-4">
-                    <Avatar>
-                      <AvatarImage src="/placeholder-user.jpg" />
-                      <AvatarFallback>SA</AvatarFallback>
-                    </Avatar>
                     <div>
-                      <p className="text-sm font-medium leading-none">Sarah Anderson</p>
-                      <p className="text-sm text-muted-foreground">Engineering Student</p>
+                      <p className="text-sm font-medium leading-none">
+                      Fatima Z.
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                      Marrakech
+                      </p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <blockquote className="text-muted-foreground">
-                    "I was struggling with my exam preparation until I\n discovered Bilim AI. The expert guidance and
-                    detailed\n analytics have helped me identify and address my weak\n areas. Highly recommended!"
+                  &quot;Nous avons fait appel à Akram Ameublement pour rénover
+                    notre mobilier et les résultats sont magnifiques. Leur
+                    collection de tissus est variée et de grande qualité, et la
+                    tapisserie est parfaitement réalisée. Une entreprise fiable
+                    et professionnelle !&quot;
                   </blockquote>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
-          <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                Take Your Exam Preparation to the Next Level
-              </h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Sign up for Bilim AI and unlock personalized learning, adaptive practice, and expert guidance to ace
-                your exams.
-              </p>
-            </div>
-            <div className="mx-auto w-full max-w-sm space-y-2">
-              <form className="flex gap-2">
-                <Input type="email" placeholder="Enter your email" className="max-w-lg flex-1" />
-                <Button type="submit">Try for Free</Button>
-              </form>
-              <p className="text-xs text-muted-foreground">Sign up to get started. No credit card required.</p>
             </div>
           </div>
         </section>
       </main>
-      <footer className="bg-muted p-6 md:py-12 w-full">
-        <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
-          <div className="grid gap-1">
-            <h3 className="font-semibold">Company</h3>
-            <Link href="#" prefetch={false}>
-              About Us
-            </Link>
-            <Link href="#" prefetch={false}>
-              Our Team
-            </Link>
-            <Link href="#" prefetch={false}>
-              Careers
-            </Link>
-            <Link href="#" prefetch={false}>
-              News
-            </Link>
-          </div>
-          <div className="grid gap-1">
-            <h3 className="font-semibold">Products</h3>
-            <Link href="#" prefetch={false}>
-              Bilim AI
-            </Link>
-            <Link href="#" prefetch={false}>
-              Bilim Tutor
-            </Link>
-            <Link href="#" prefetch={false}>
-              Bilim Analytics
-            </Link>
-          </div>
-          <div className="grid gap-1">
-            <h3 className="font-semibold">Resources</h3>
-            <Link href="#" prefetch={false}>
-              Blog
-            </Link>
-            <Link href="#" prefetch={false}>
-              Documentation
-            </Link>
-            <Link href="#" prefetch={false}>
-              FAQs
-            </Link>
-            <Link href="#" prefetch={false}>
-              Community
-            </Link>
-          </div>
-          <div className="grid gap-1">
-            <h3 className="font-semibold">Legal</h3>
-            <Link href="#" prefetch={false}>
-              Privacy Policy
-            </Link>
-            <Link href="#" prefetch={false}>
-              Terms of Service
-            </Link>
-            <Link href="#" prefetch={false}>
-              Cookie Policy
-            </Link>
-          </div>
-          <div className="grid gap-1">
-            <h3 className="font-semibold">Contact</h3>
-            <Link href="#" prefetch={false}>
-              Support
-            </Link>
-            <Link href="#" prefetch={false}>
-              Sales
-            </Link>
-            <Link href="#" prefetch={false}>
-              Partnerships
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
-  )
+  );
 }
 
 function BrainIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
@@ -296,9 +232,8 @@ function BrainIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       <path d="M6 18a4 4 0 0 1-1.967-.516" />
       <path d="M19.967 17.484A4 4 0 0 1 18 18" />
     </svg>
-  )
+  );
 }
-
 
 function XIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
@@ -317,5 +252,5 @@ function XIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />
     </svg>
-  )
+  );
 }

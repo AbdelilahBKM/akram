@@ -207,7 +207,7 @@ export default function Component() {
                                                                 <AlertDialogHeader>
                                                                     <AlertDialogTitle>Etes-vous absolument sûr ?</AlertDialogTitle>
                                                                     <AlertDialogDescription>
-                                                                        Cette action ne peut pas être annulée. Cela supprimera définitivement l'élément de la base de données.
+                                                                        Cette action ne peut pas être annulée. Cela supprimera définitivement l&apos;élément de la base de données.
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
                                                                 <AlertDialogFooter>

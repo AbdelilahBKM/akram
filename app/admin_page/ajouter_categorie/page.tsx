@@ -48,7 +48,7 @@ export default function AjouterProduit() {
             dispatch(logout());
             router.push('/admin_page');
         }
-    }, []);
+    });
     
     const api_token = useSelector((state: RootState) => state.auth.token);
 

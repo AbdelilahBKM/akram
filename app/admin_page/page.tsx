@@ -10,7 +10,7 @@ export interface IAdmin {
 }
 
 
-export default function page() {
+export default function Page() {
     const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
     return (
         <div>

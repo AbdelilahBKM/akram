@@ -1,6 +1,6 @@
+import About_us from "@/components/about-us";
 import Collections from "@/components/collection-cards";
 import ContactForm from "@/components/Contact-form";
-import Contact_info from "@/components/contact-info";
 import HeroSection from "@/components/Hero-section";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/Header";
@@ -9,23 +9,23 @@ import Product_section from "@/components/products-section";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <header className="w-full flex items-center justify-center my-3">
+      <header className="w-full flex items-center justify-center fixed z-20">
         <Header />
       </header>
         <section className="w-full" id="hero">
           <HeroSection />
         </section>
-        <section className="w-full px-0 py-0" id="collection">
+        <section className="w-full px-0 py-1" id="collection">
           <Collections />
         </section>
-        <section className="w-full px-0 py-0" id="product">
+        <section className="w-full px-0 py-16" id="product">
           <Product_section />
         </section>
-        <section className="w-full px-0 py-0" id="about-us">
+        <section className="w-full px-0 py-16" id="about-us">
+          <About_us />
         </section>
-        <section className="w-full px-0 py-0" id="contact">
+        <section className="w-full px-0 py-16" id="contact">
           <ContactForm />
-          <Contact_info />
         </section>
       <Footer />
     </main>

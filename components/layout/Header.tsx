@@ -3,7 +3,7 @@ import { JSX, SVGProps } from "react"
 import Image from "next/image"
 export default function Component() {
     return (
-        <header className="flex items-center justify-between h-16 px-4 bg-white md:px-6 w-[1207px]">
+        <header className="flex items-center justify-between h-16 px-4 bg-white md:px-6 w-full shadow-lg">
             <Link href="/" className="flex items-center gap-2" prefetch={false}>
                 <Image src={"/akram-logo.png"} alt="" width={50} height={32} />
                 <span className="text-2xl font-semibold">Akram</span>
@@ -15,7 +15,7 @@ export default function Component() {
                 <Link href="/#product" className="hover:underline underline-offset-4" prefetch={false}>
                     boutique
                 </Link>
-                <Link href="/#about" className="hover:underline underline-offset-4" prefetch={false}>
+                <Link href="/#about-us" className="hover:underline underline-offset-4" prefetch={false}>
                     à propos
                 </Link>
                 <Link href="/#contact" className="hover:underline underline-offset-4" prefetch={false}>
@@ -25,9 +25,6 @@ export default function Component() {
             <div className="flex items-center gap-6 text-sm font-medium">
                 <Link href="">
                     <Image src={"/items/like.png"} alt="" width={23} height={23} />
-                </Link>
-                <Link href="">
-                    <Image src={"/items/search.png"} alt="" width={23} height={23} />
                 </Link>
             </div>
         </header>

@@ -67,7 +67,7 @@ export default function LoginPage() {
                 <div className="mx-auto w-full max-w-md space-y-6">
                     <div className="space-y-2 text-center">
                         <h1 className="text-3xl font-bold text-orange-400">Bienvenu!</h1>
-                        <p className="text-muted-foreground">Entrez vos informations d'identification pour accéder au panneau d'administration.</p>
+                        <p className="text-muted-foreground">Entrez vos informations d&apos;identification pour accéder au panneau d&apos;administration.</p>
                     </div>
                     <div className="space-y-4">
                         <div className="space-y-2 mb-7">

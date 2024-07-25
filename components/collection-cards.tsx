@@ -9,7 +9,7 @@ export default function Collections() {
                         fusion parfaite entre tradition marocaine et design modern.
                     </p>
                 </div>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
                     <div className="group relative overflow-hidden rounded-lg">
                         <Image
                             src="/images/tissues.png"
@@ -44,6 +44,18 @@ export default function Collections() {
                         />
                         <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-4 transition-opacity duration-300 ease-in-out group-hover:opacity-0">
                             <h3 className="text-lg font-semibold text-white">Literie</h3>
+                        </div>
+                    </div>
+                    <div className="group relative overflow-hidden rounded-lg">
+                        <Image
+                            src="/images/voilage.png"
+                            alt="voilage"   
+                            width={400}
+                            height={300}
+                            className="w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-4 transition-opacity duration-300 ease-in-out group-hover:opacity-0">
+                            <h3 className="text-lg font-semibold text-white">Voilage</h3>
                         </div>
                     </div>
                 </div>
