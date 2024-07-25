@@ -43,10 +43,13 @@ export default function AjouterProduit() {
     const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
     const router = useRouter();
     const dispatch = useDispatch();
-    if (!isAuth) {
-        dispatch(logout());
-        router.push('/admin_page');
-    }
+    useEffect(() => {
+        if (!isAuth) {
+            dispatch(logout());
+            router.push('/admin_page');
+        }
+    }, []);
+    
     const api_token = useSelector((state: RootState) => state.auth.token);
 
     const formRef = useRef<HTMLFormElement>(null);
@@ -83,8 +86,8 @@ export default function AjouterProduit() {
 
                 if (response.ok) {
                     const result = await response.json();
-                    console.log('Product added successfully:', result);
-                    setNotification('Produit ajouté avec succès !');
+                    console.log('catégorie added successfully:', result);
+                    setNotification('catégorie ajouté avec succès !');
 
                     setIsLoading(false);
                     setDescription('');

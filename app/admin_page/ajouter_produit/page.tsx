@@ -33,25 +33,24 @@ import { RootState } from "@/store/redux";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from '@/store/authReducer';
 import { Categorie, Produits } from '@/types/Produit';
-import { AlertCircle, Terminal, X } from 'lucide-react';
-
-
+import { AlertCircle, X } from 'lucide-react';
 
 export default function AjouterProduit() {
   const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
   const router = useRouter();
   const dispatch = useDispatch();
+
   if (!isAuth) {
     dispatch(logout());
     router.push('/admin_page');
   }
+
   const api_token = useSelector((state: RootState) => state.auth.token);
 
   const formRef = useRef<HTMLFormElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [imageName, setImageName] = useState<string | null>(null);
-  const [imageData, setImageData] = useState<string>('');
-  const [listCategories, setListCategories] = useState<Categorie[]>();
+  const [listCategories, setListCategories] = useState<Categorie[]>([]);
   const [nomProd, setNomProd] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [prixProduit, setPrixProduit] = useState<number>(0.00);
@@ -61,6 +60,8 @@ export default function AjouterProduit() {
   const [notification, setNotification] = useState('');
 
   useEffect(() => {
+    setError('');
+    setNotification('');
     const fetchCategories = async () => {
       try {
         console.log('Fetching categories...');
@@ -97,7 +98,6 @@ export default function AjouterProduit() {
     }
   };
 
-
   const handleSelectChange = (value: string) => {
     setCategorie(Number(value));
   };
@@ -121,10 +121,9 @@ export default function AjouterProduit() {
         if (!response.ok) {
           throw new Error('Upload failed');
         }
-
         const data = await response.json();
         setImageName(data.imageName);
-        setImageData(data.imageData);
+        console.log('image uloaded:' , imageName);
 
       } catch (error) {
         console.error('Error uploading image:', error);
@@ -138,8 +137,8 @@ export default function AjouterProduit() {
     setError('');
     setNotification('');
     setIsLoading(true);
-    if (nomProd !== '' && description !== '' && prixProduit !== 0 && imageName !== null && categorie !== 0) {
-      await UploadImage();
+
+    if (nomProd && description && prixProduit > 0 && imageName && categorie !== 0) {
       try {
         const response = await fetch('http://localhost:8000/api/produits', {
           method: 'POST',
@@ -150,7 +149,6 @@ export default function AjouterProduit() {
           body: JSON.stringify({
             'nom_produit': nomProd,
             'image_produits': imageName,
-            'image_data': imageData,
             'description': description,
             'prix': prixProduit,
             'categorie': categorie
@@ -169,8 +167,6 @@ export default function AjouterProduit() {
           setCategorie(0);
           setImageName(null);
 
-          // Optionally redirect or update UI
-          // For example:
         } else {
           const errorResult = await response.json();
           console.error('Error adding product:', errorResult);
@@ -179,7 +175,7 @@ export default function AjouterProduit() {
       } catch (error) {
         setIsLoading(false);
         console.error('Network error:', error);
-        setError('Une erreur est survenue lors de l\'ajout du produit.');
+        setError("Une erreur est survenue lors de l'ajout du produit.");
       }
     } else {
       setIsLoading(false);
@@ -189,8 +185,7 @@ export default function AjouterProduit() {
 
   return (
     <section className='flex flex-col items-center justify-center mb-7 bg-slate-100 min-h-screen'>
-      {
-        notification !== '' &&
+      {notification && (
         <Alert variant={'default'} className='w-[500px] border-green-800 text-green-800 mt-4'>
           <X onClick={() => setNotification('')} className="h-5 w-5 text-green-800 cursor-pointer" />
           <AlertTitle>Succès!</AlertTitle>
@@ -198,18 +193,19 @@ export default function AjouterProduit() {
             {notification}
           </AlertDescription>
         </Alert>
-      }
+      )}
       <Card className='mt-4 shadow w-[775px]'>
         <CardHeader>
-          <CardTitle>AJouter Produit</CardTitle>
+          <CardTitle>Ajouter Produit</CardTitle>
           <CardDescription>Mettez à jour les détails de votre produit.</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit} ref={formRef} className="grid gap-6">
           <CardContent>
             <div className="grid gap-2 mb-4">
               <Label htmlFor="image">Image du produit</Label>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between gap-2">
                 <Input id="image" type="file" onChange={handleFileChange} />
+                <div onClick={UploadImage} className="text-sm w-[250px] border border-slate-700 text-slate-700 rounded-sm px-4 py-3 text-center hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">Télécharger Image</div>
               </div>
             </div>
             <div className="grid gap-2 mb-4">
@@ -218,8 +214,7 @@ export default function AjouterProduit() {
             </div>
             <div className="grid gap-2 mb-4">
               <Label htmlFor="description">Description du produit</Label>
-              <Textarea value={description}
-              onChange={(e) => setDescription(e.target.value)} id="description" placeholder="Entrez la description du produit" className="min-h-[120px]" />
+              <Textarea value={description} onChange={(e) => setDescription(e.target.value)} id="description" placeholder="Entrez la description du produit" className="min-h-[120px]" />
             </div>
             <div className="grid gap-2 mb-4">
               <Label htmlFor="price">Prix du produit</Label>
@@ -231,17 +226,14 @@ export default function AjouterProduit() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem key={0} value="0">Categorie de produit</SelectItem>
-                {
-                  listCategories?.map((categorie) => (
-                    <SelectItem key={categorie.id} value={categorie.id.toString()}>{categorie.nom_categorie}</SelectItem>
-                  ))
-                }
+                {listCategories?.map((categorie) => (
+                  <SelectItem key={categorie.id} value={categorie.id.toString()}>{categorie.nom_categorie}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
-
           </CardContent>
           <CardFooter className='flex flex-col gap-2 items-start'>
-            <Alert variant="destructive" className={error !== '' ? 'block' : 'hidden'}>
+            <Alert variant="destructive" className={error ? 'block' : 'hidden'}>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Erreur:</AlertTitle>
               <AlertDescription>
@@ -249,14 +241,14 @@ export default function AjouterProduit() {
               </AlertDescription>
             </Alert>
             <AlertDialog>
-              <AlertDialogTrigger disabled={isLoading ? true : false} className='border border-slate-800 text-slate-800 px-4 py-2 rounded-sm hover:bg-slate-800 hover:text-white transition-colors'>
-                {isLoading ? 'veuillez patienter...' : 'Ajouter Produit'}
+              <AlertDialogTrigger disabled={isLoading} className='border border-slate-800 text-slate-800 px-4 py-2 rounded-sm hover:bg-slate-800 hover:text-white transition-colors'>
+                {isLoading ? 'Veuillez patienter...' : 'Ajouter Produit'}
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>En êtes-vous absolument sûr ?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Cette action créera un nouveau produit
+                    Cette action créera un nouveau produit.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -268,8 +260,6 @@ export default function AjouterProduit() {
           </CardFooter>
         </form>
       </Card>
-    </section >
-  )
+    </section>
+  );
 }
-
-

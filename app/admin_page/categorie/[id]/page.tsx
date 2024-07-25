@@ -1,10 +1,10 @@
 "use client";
-import { useParams } from 'next/navigation';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useParams, useRouter } from 'next/navigation';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,49 +17,170 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert";
 
-export default function Component() {
-  const params = useParams();
+import { RootState } from "@/store/redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from '@/store/authReducer';
+import { Categorie } from '@/types/Produit';
+import { AlertCircle, X } from 'lucide-react';
+
+export default function AjouterProduit() {
+  const api_token = useSelector((state: RootState) => state.auth.token);
+  const params = useParams(); 
   const id = params.id;
-  return (
-    <section className='flex items-center justify-center mb-28'>
-      <Card>
-        <CardHeader>
-          <CardTitle>Modifier Produit</CardTitle>
-          <CardDescription>Mettez à jour les détails de votre Catégorie.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form className="grid gap-6">
-            <div className="grid gap-2">
-              <Label htmlFor="title">Nom Catégorie</Label>
-              <Input id="title" placeholder="Entrez le titre du produit" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="description">Description du Catégorie</Label>
-              <Textarea id="description" placeholder="Entrez la description du produit" className="min-h-[120px]" />
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <AlertDialog>
-            <AlertDialogTrigger className='border border-slate-800 text-slate-800 px-4 py-2 rounded-sm hover:bg-slate-800 hover:text-white transition-colors'>
-              Sauvegarder les modifications
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>En êtes-vous absolument sûr ?</AlertDialogTitle>
-                <AlertDialogDescription>
-                Cette action ne peut pas être annulée. Cela remplacera les anciennes informations sur l'article par les nouvelles.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Annuler</AlertDialogCancel>
-                <AlertDialogAction>Continuer</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+  const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [categorie, setCategorie] = useState<Categorie | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [nomCategorie, setNomCategorie] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const [notification, setNotification] = useState('');
 
-        </CardFooter>
+  useEffect(() => {
+    if (!isAuth) {
+      dispatch(logout());
+      router.push('/admin_page');
+    } else {
+      const fetchCategorie = async () => {
+        try {
+          console.log('fetching Category: ');
+          const response = await fetch(`http://127.0.0.1:8000/api/categories/${id}`, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+            }
+          });
+          console.log('response: ', response);
+          if (!response.ok) {
+            throw new Error("Ce produit n'existe pas");
+          }
+          const data: Categorie = await response.json();
+          setCategorie(data);
+          setNomCategorie(data.nom_categorie);
+          setDescription(data.description_categorie);
+        } catch (error) {
+          console.error('Error fetching Category:', error);
+          setError("Une erreur s'est produite lors de la tentative d'obtention de cette catégorie");
+        }
+      };
+      fetchCategorie();
+    }
+  }, [id, isAuth, dispatch, router]);
+
+  const handleAlertDialogConfirm = async () => {
+    if (formRef.current) {
+      await handleSubmit(); // Call handleSubmit within the dialog
+    }
+  };
+
+  const handleSubmit = async (e?: FormEvent<HTMLFormElement>) => {
+    if (e) e.preventDefault();
+    setError('');
+    setNotification('');
+    setIsLoading(true);
+    if (nomCategorie !== '' && description !== '') {
+      try {
+        const response = await fetch(`http://localhost:8000/api/categories/${id}`, { // Ensure URL is correct
+          method: 'PUT', // Use PUT for updates
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${api_token}`
+          },
+          body: JSON.stringify({
+            'nom_categorie': nomCategorie,
+            'description_categorie': description
+          })
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Category updated successfully:', result);
+          setNotification('Catégorie mise à jour avec succès !');
+
+          setIsLoading(false);
+          setDescription('');
+          setNomCategorie('');
+
+        } else {
+          const errorResult = await response.json();
+          console.error('Error updating category:', errorResult);
+          setError("Une erreur s'est produite lors de la connexion.");
+        }
+      } catch (error) {
+        setIsLoading(false);
+        console.error('Network error:', error);
+        setError('Une erreur est survenue lors de la mise à jour de la catégorie.');
+      }
+    } else {
+      setIsLoading(false);
+      setError('Veuillez remplir tous les champs.');
+    }
+  };
+
+  return (
+    <section className='flex flex-col items-center justify-center mb-7 bg-slate-100 min-h-screen'>
+      {
+        notification !== '' &&
+        <Alert variant={'default'} className='w-[500px] border-green-800 text-green-800 mt-4'>
+          <X onClick={() => setNotification('')} className="h-5 w-5 text-green-800 cursor-pointer" />
+          <AlertTitle>Succès!</AlertTitle>
+          <AlertDescription>
+            {notification}
+          </AlertDescription>
+        </Alert>
+      }
+      <Card className='mt-4 shadow w-[775px]'>
+        <CardHeader>
+          <CardTitle>Modifier Catégorie N°{id}</CardTitle>
+          <CardDescription>Mettez à jour les détails de la catégorie.</CardDescription>
+        </CardHeader>
+        <form onSubmit={handleSubmit} ref={formRef} className="grid gap-6">
+          <CardContent>
+            <div className="grid gap-2 mb-4">
+              <Label htmlFor="title">Titre de la Catégorie</Label>
+              <Input value={nomCategorie} onChange={(e) => setNomCategorie(e.target.value)} id="title" placeholder="Entrez le titre de la catégorie" />
+            </div>
+            <div className="grid gap-2 mb-4">
+              <Label htmlFor="description">Description de la Catégorie</Label>
+              <Textarea value={description}
+                onChange={(e) => setDescription(e.target.value)} id="description" placeholder="Entrez la description de la catégorie" className="min-h-[120px]" />
+            </div>
+          </CardContent>
+          <CardFooter className='flex flex-col gap-2 items-start'>
+            <Alert variant="destructive" className={error !== '' ? 'block' : 'hidden'}>
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Erreur:</AlertTitle>
+              <AlertDescription>
+                {error}
+              </AlertDescription>
+            </Alert>
+            <AlertDialog>
+              <AlertDialogTrigger disabled={isLoading} className='border border-slate-800 text-slate-800 px-4 py-2 rounded-sm hover:bg-slate-800 hover:text-white transition-colors'>
+                {isLoading ? 'Veuillez patienter...' : 'Modifier Catégorie'}
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>En êtes-vous absolument sûr ?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Cette action mettra à jour la catégorie
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleAlertDialogConfirm}>Continuer</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </CardFooter>
+        </form>
       </Card>
     </section>
   )
