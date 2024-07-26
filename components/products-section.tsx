@@ -20,7 +20,6 @@ export default function Product_section() {
     setIsLoading(true);
     const fetchCategories = async () => {
       try {
-        console.log('Fetching categories...');
         const response = await fetch('http://127.0.0.1:8000/api/categories', {
           method: 'GET',
           headers: {
