@@ -31,10 +31,11 @@ export default function Component() {
     const [refresh, setRefresh] = useState<boolean>(false);
     const [deleteProductId, setDeleteProductId] = useState<number>(0);
     const [deleteCategorieId, setDeleteCategorieId] = useState<number>(0);
+    const [productSearchQuery, setProductSearchQuery] = useState<string>("");
+    const [categorySearchQuery, setCategorySearchQuery] = useState<string>("");
     const api_token = useSelector((state: RootState) => state.auth.token);
 
     useEffect(() => {
-
         const fetchCategories = async () => {
             try {
                 console.log('Fetching categories...');
@@ -113,31 +114,37 @@ export default function Component() {
     };
     const handleDeleteCategorie = async (id: number) => {
         setDeleteCategorieId(id);
-      
-        if (id !== 0) {
-          try {
-            const response = await fetch(`http://localhost:8000/api/categories/${id}`, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${api_token}`,
-              },
-            });
-      
-            if (!response.ok) {
-              throw new Error('La catégorie n\'existe probablement pas');
+        if (deleteCategorieId !== 0) {
+            try {
+                const response = await fetch(`http://localhost:8000/api/categories/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${api_token}`,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error('La catégorie n\'existe probablement pas');
+                }
+                console.log('Catégorie supprimée avec succès');
+                setRefresh((prev) => !prev);
+            } catch (error) {
+                console.error('Erreur lors de la suppression de la catégorie:', error);
+            } finally {
+                setDeleteCategorieId(0);
             }
-      
-            console.log('Catégorie supprimée avec succès');
-            setRefresh((prev) => !prev);
-          } catch (error) {
-            console.error('Erreur lors de la suppression de la catégorie:', error);
-          } finally {
-            setDeleteCategorieId(0);
-          }
         }
-      };
-      
+    };
+
+    const filteredProducts = listProduits.filter(prod =>
+        prod.nom_produit.toLowerCase().includes(productSearchQuery.toLowerCase()) ||
+        prod.description.toLowerCase().includes(productSearchQuery.toLowerCase())
+    );
+
+    const filteredCategories = listCategories.filter(categorie =>
+        categorie.nom_categorie.toLowerCase().includes(categorySearchQuery.toLowerCase()) ||
+        categorie.description_categorie.toLowerCase().includes(categorySearchQuery.toLowerCase())
+    );
 
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -160,15 +167,20 @@ export default function Component() {
                                     <CardTitle>Vos Produits</CardTitle>
                                     <CardDescription>Gérez vos produits.</CardDescription>
                                     <CardContent>
-                                        <Button onClick={() => setRefresh(prev => prev)} variant={"ghost"} className="flex gap-4">
+                                        <Button onClick={() => setRefresh(prev => !prev)} variant={"ghost"} className="flex gap-4">
                                             <p>Actualiser</p>
                                             <RefreshCcw className="h-4 w-4" />
                                         </Button>
                                         <div className="w-1/2 mt-4 bg-slate-50 flex flex-col items-start gap-4">
                                             <h1>Rechercher un Article Spécifique:</h1>
-                                            <Input type="search" placeholder="recherchez" className="w-[453px]" />
+                                            <Input 
+                                                type="search" 
+                                                placeholder="recherchez" 
+                                                className="w-[453px]" 
+                                                value={productSearchQuery}
+                                                onChange={(e) => setProductSearchQuery(e.target.value)}
+                                            />
                                         </div>
-
                                     </CardContent>
                                 </CardHeader>
                                 <CardContent>
@@ -186,7 +198,7 @@ export default function Component() {
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            {listProduits?.map((prod) => (
+                                            {filteredProducts.map((prod) => (
                                                 <TableRow key={prod.id}>
                                                     <TableCell>
                                                         <Image src={`http://127.0.0.1:8000/storage/images/${prod.image_produits}`} alt={prod.nom_produit} width={50} height={50} className="w-20 h-fit rounded-sm" />
@@ -224,7 +236,7 @@ export default function Component() {
                                 </CardContent>
                                 <CardFooter>
                                     <div className="text-xs text-muted-foreground">
-                                        affichant <strong>1-{listProduits?.length}</strong> sur <strong>{listProduits?.length}</strong> produits
+                                        affichant <strong>1-{filteredProducts.length}</strong> sur <strong>{listProduits.length}</strong> produits
                                     </div>
                                 </CardFooter>
                             </Card>
@@ -242,7 +254,13 @@ export default function Component() {
                                         </Button>
                                         <div className="w-1/2 mt-4 flex flex-col items-start gap-4">
                                             <h1>Rechercher un Article Spécifique</h1>
-                                            <Input type="search" placeholder="recherchez" className="w-[453px]" />
+                                            <Input 
+                                                type="search" 
+                                                placeholder="recherchez" 
+                                                className="w-[453px]" 
+                                                value={categorySearchQuery}
+                                                onChange={(e) => setCategorySearchQuery(e.target.value)}
+                                            />
                                         </div>
                                     </CardContent>
                                 </CardHeader>
@@ -258,7 +276,7 @@ export default function Component() {
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            {listCategories?.map((categorie) => (
+                                            {filteredCategories.map((categorie) => (
                                                 <TableRow key={categorie.id}>
                                                     <TableCell className="font-medium">{categorie.nom_categorie}</TableCell>
                                                     <TableCell>{categorie.description_categorie}</TableCell>
@@ -291,7 +309,7 @@ export default function Component() {
                                 </CardContent>
                                 <CardFooter>
                                     <div className="text-xs text-muted-foreground">
-                                        affichant <strong>1-{listCategories?.length}</strong> sur <strong>{listCategories?.length}</strong> catégories
+                                        affichant <strong>1-{filteredCategories.length}</strong> sur <strong>{listCategories.length}</strong> catégories
                                     </div>
                                 </CardFooter>
                             </Card>

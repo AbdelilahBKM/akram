@@ -11,7 +11,7 @@ export default function Admin_Header() {
     const route = useRouter();
     const dispatch = useDispatch();
     const api_token = useSelector((state: RootState) => state.auth.token);
-    console.log(api_token)
+    console.log(api_token);
     function handleLogout(): void {
         dispatch(logout());
         route.refresh();
@@ -31,7 +31,16 @@ export default function Admin_Header() {
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Mon Compte</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>paramètres</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Link href={"/admin_page"}>
+                            Gestion des produits/catégories
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Link href={"/admin_page/messages"}>
+                            Gestion des messages clients
+                        </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout}>Se déconnecter</DropdownMenuItem>
                 </DropdownMenuContent>
