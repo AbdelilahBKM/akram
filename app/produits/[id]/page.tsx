@@ -1,7 +1,6 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { Produits } from "@/types/Produit";
-import { useParams } from "next/navigation";
 import { JSX, SVGProps, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,8 +8,9 @@ import Header from "@/components/layout/Header";
 import { DOMAIN_NAME } from "@/utils/app_variables";
 import { LoadingProducts } from "@/components/loadingProducts";
 
-export default function Component() {
-  const params = useParams();
+export default function Component({ params }: {
+  params: { id: number }
+}) {
   const id = params.id;
   const [product, setProduct] = useState<Produits | null>(null);
   const [listProduits, setListProduits] = useState<Produits[]>([]);
