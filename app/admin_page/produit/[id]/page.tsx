@@ -212,7 +212,7 @@ export default function Component() {
   };
 
   return (
-    <section className='flex flex-col items-center justify-center mb-7 bg-slate-100 min-h-screen'>
+    <section className='flex flex-col items-center justify-start bg-slate-100 min-h-screen py-[125px]'>
       {notification && (
         <Alert variant={'default'} className='w-[500px] border-green-800 text-green-800 mt-4 mb-2'>
           <X onClick={() => setNotification('')} className="h-5 w-5 text-green-800 cursor-pointer" />

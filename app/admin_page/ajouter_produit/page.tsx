@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent, useEffect, useReducer, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -32,7 +32,7 @@ import {
 import { RootState } from "@/store/redux";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from '@/store/authReducer';
-import { Categorie, Produits } from '@/types/Produit';
+import { Categorie } from '@/types/Produit';
 import { AlertCircle, X } from 'lucide-react';
 
 export default function AjouterProduit() {
@@ -104,6 +104,9 @@ export default function AjouterProduit() {
 
   const UploadImage = async () => {
     setError('');
+    setNotification('');
+    setIsLoading(true);  // Set loading state
+
     if (file) {
       const formData = new FormData();
       formData.append('image', file);
@@ -123,12 +126,17 @@ export default function AjouterProduit() {
         }
         const data = await response.json();
         setImageName(data.imageName);
-        console.log('image uloaded:' , imageName);
-
+        console.log('Image uploaded:', data.imageName);
+        setNotification('Image téléchargée avec succès!');
       } catch (error) {
         console.error('Error uploading image:', error);
-        setError("Erreur lors de l'envoi de l'image:");
+        setError("Erreur lors de l'envoi de l'image.");
+      } finally {
+        setIsLoading(false);  // Reset loading state
       }
+    } else {
+      setError('Veuillez sélectionner une image à télécharger.');
+      setIsLoading(false);  // Reset loading state
     }
   };
 
@@ -160,22 +168,21 @@ export default function AjouterProduit() {
           console.log('Product added successfully:', result);
           setNotification('Produit ajouté avec succès !');
 
-          setIsLoading(false);
           setNomProd('');
           setDescription('');
           setPrixProduit(0);
           setCategorie(0);
           setImageName(null);
-
         } else {
           const errorResult = await response.json();
           console.error('Error adding product:', errorResult);
-          setError("Une erreur s'est produite lors de la connexion.");
+          setError("Une erreur s'est produite lors de l'ajout du produit.");
         }
       } catch (error) {
-        setIsLoading(false);
         console.error('Network error:', error);
         setError("Une erreur est survenue lors de l'ajout du produit.");
+      } finally {
+        setIsLoading(false);
       }
     } else {
       setIsLoading(false);
@@ -184,7 +191,7 @@ export default function AjouterProduit() {
   };
 
   return (
-    <section className='flex flex-col items-center justify-center mb-7 bg-slate-100 min-h-screen'>
+    <section className='flex flex-col items-center justify-start bg-slate-100 min-h-screen py-[125px]'>
       {notification && (
         <Alert variant={'default'} className='w-[500px] border-green-800 text-green-800 mt-4'>
           <X onClick={() => setNotification('')} className="h-5 w-5 text-green-800 cursor-pointer" />
@@ -205,7 +212,9 @@ export default function AjouterProduit() {
               <Label htmlFor="image">Image du produit</Label>
               <div className="flex items-center justify-between gap-2">
                 <Input id="image" type="file" onChange={handleFileChange} />
-                <div onClick={UploadImage} className="text-sm w-[250px] border border-slate-700 text-slate-700 rounded-sm px-4 py-3 text-center hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">Télécharger Image</div>
+                <div onClick={UploadImage} className="text-sm w-[250px] border border-slate-700 text-slate-700 rounded-sm px-4 py-3 text-center hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">
+                  {isLoading ? 'Veuillez patienter...' : 'Télécharger Image'}
+                </div>
               </div>
             </div>
             <div className="grid gap-2 mb-4">

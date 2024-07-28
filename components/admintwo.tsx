@@ -147,8 +147,8 @@ export default function Component() {
     );
 
     return (
-        <div className="flex min-h-screen w-full flex-col bg-muted/40">
-            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-slate-100">
+        <div className="flex min-h-screen w-full flex-col bg-muted/40 py-[125px]">
+            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
                 <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
                     <Tabs defaultValue="products">
                         <div className="flex items-end">
@@ -162,7 +162,7 @@ export default function Component() {
                         </div>
                         {/* produits */}
                         <TabsContent value="products">
-                            <Card className="bg-slate-50" x-chunk="dashboard-06-chunk-0">
+                            <Card className="" x-chunk="dashboard-06-chunk-0">
                                 <CardHeader>
                                     <CardTitle>Vos Produits</CardTitle>
                                     <CardDescription>Gérez vos produits.</CardDescription>
@@ -171,7 +171,7 @@ export default function Component() {
                                             <p>Actualiser</p>
                                             <RefreshCcw className="h-4 w-4" />
                                         </Button>
-                                        <div className="w-1/2 mt-4 bg-slate-50 flex flex-col items-start gap-4">
+                                        <div className="w-1/2 mt-4 flex flex-col items-start gap-4">
                                             <h1>Rechercher un Article Spécifique:</h1>
                                             <Input 
                                                 type="search" 

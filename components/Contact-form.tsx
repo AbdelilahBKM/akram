@@ -14,7 +14,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import Contact_info from "./contact-info";
 import { FormEvent, useState } from "react";
 import { AlertCircle, X } from "lucide-react";
 
@@ -170,7 +169,6 @@ export default function ContactForm() {
             </Card>
           </div>
         </section>
-        <Contact_info />
       </main>
     </div>
   );
