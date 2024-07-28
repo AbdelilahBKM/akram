@@ -3,7 +3,6 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from 'next/navigation';
 import {
@@ -34,6 +33,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from '@/store/authReducer';
 import { Categorie } from '@/types/Produit';
 import { AlertCircle, X } from 'lucide-react';
+import { DOMAIN_NAME } from '@/utils/app_variables';
 
 export default function AjouterProduit() {
   const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -65,18 +65,16 @@ export default function AjouterProduit() {
     const fetchCategories = async () => {
       try {
         console.log('Fetching categories...');
-        const response = await fetch('http://127.0.0.1:8000/api/categories', {
+        const response = await fetch(`${DOMAIN_NAME}/api/categories`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           }
         });
-        console.log('Categories response:', response);
         if (!response.ok) {
           throw new Error(`Network response was not ok: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('Categories data:', data);
         setListCategories(data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -112,7 +110,7 @@ export default function AjouterProduit() {
       formData.append('image', file);
 
       try {
-        const response = await fetch('http://localhost:8000/api/upload-image', {
+        const response = await fetch(`${DOMAIN_NAME}/api/upload-image`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${api_token}`,
@@ -126,17 +124,16 @@ export default function AjouterProduit() {
         }
         const data = await response.json();
         setImageName(data.imageName);
-        console.log('Image uploaded:', data.imageName);
         setNotification('Image téléchargée avec succès!');
       } catch (error) {
         console.error('Error uploading image:', error);
-        setError("Erreur lors de l'envoi de l'image.");
+        setError("Erreur lors de l'envoi de l'image.\n L'image doit être de l'un des types spécifiés (JPEG, PNG, JPG, GIF, WEBP) et la taille de fichier maximale autorisée pour l'image est 2Mo.");
       } finally {
-        setIsLoading(false);  // Reset loading state
+        setIsLoading(false);
       }
     } else {
       setError('Veuillez sélectionner une image à télécharger.');
-      setIsLoading(false);  // Reset loading state
+      setIsLoading(false);
     }
   };
 
@@ -148,7 +145,7 @@ export default function AjouterProduit() {
 
     if (nomProd && description && prixProduit > 0 && imageName && categorie !== 0) {
       try {
-        const response = await fetch('http://localhost:8000/api/produits', {
+        const response = await fetch(`${DOMAIN_NAME}/api/produits`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

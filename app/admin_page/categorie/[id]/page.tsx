@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from '@/store/authReducer';
 import { Categorie } from '@/types/Produit';
 import { AlertCircle, X } from 'lucide-react';
+import { DOMAIN_NAME } from '@/utils/app_variables';
 
 export default function AjouterProduit() {
   const api_token = useSelector((state: RootState) => state.auth.token);
@@ -51,14 +52,12 @@ export default function AjouterProduit() {
     } else {
       const fetchCategorie = async () => {
         try {
-          console.log('fetching Category: ');
-          const response = await fetch(`http://127.0.0.1:8000/api/categories/${id}`, {
+          const response = await fetch(`${DOMAIN_NAME}/api/categories/${id}`, {
             method: 'GET',
             headers: {
               'Accept': 'application/json',
             }
           });
-          console.log('response: ', response);
           if (!response.ok) {
             throw new Error("Ce produit n'existe pas");
           }
@@ -77,7 +76,7 @@ export default function AjouterProduit() {
 
   const handleAlertDialogConfirm = async () => {
     if (formRef.current) {
-      await handleSubmit(); // Call handleSubmit within the dialog
+      await handleSubmit(); 
     }
   };
 
@@ -88,8 +87,8 @@ export default function AjouterProduit() {
     setIsLoading(true);
     if (nomCategorie !== '' && description !== '') {
       try {
-        const response = await fetch(`http://localhost:8000/api/categories/${id}`, { // Ensure URL is correct
-          method: 'PUT', // Use PUT for updates
+        const response = await fetch(`${DOMAIN_NAME}/api/categories/${id}`, {
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${api_token}`

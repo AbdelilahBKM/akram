@@ -3,7 +3,6 @@ import { FormEvent, useEffect, useReducer, useRef, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from 'next/navigation';
 import {
@@ -18,13 +17,6 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 
 import {
     Alert,
@@ -35,8 +27,8 @@ import {
 import { RootState } from "@/store/redux";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from '@/store/authReducer';
-import { Categorie, Produits } from '@/types/Produit';
 import { AlertCircle, Terminal, X } from 'lucide-react';
+import { DOMAIN_NAME } from '@/utils/app_variables';
 
 
 export default function AjouterProduit() {
@@ -72,7 +64,7 @@ export default function AjouterProduit() {
         setIsLoading(true);
         if (nomCategorie !== '' && description !== '') {
             try {
-                const response = await fetch('http://localhost:8000/api/categories', {
+                const response = await fetch(`${DOMAIN_NAME}/api/categories`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

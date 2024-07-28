@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "@/store/authReducer";
-
+import { DOMAIN_NAME } from "@/utils/app_variables";
 
 import {
     Alert,
@@ -28,7 +28,7 @@ export default function LoginPage() {
         setError('');
         setIsLoading(true);
         try {
-            const loginResponse = await fetch("http://localhost:8000/api/login", {
+            const loginResponse = await fetch(`${DOMAIN_NAME}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
