@@ -14,7 +14,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { JSX, SVGProps, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RootState } from "@/store/redux";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { DOMAIN_NAME } from "@/utils/app_variables";
 
 export default function Liste_des_messages() {
   const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -50,7 +51,7 @@ export default function Liste_des_messages() {
 
     const getAllMessage = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/contact/", {
+        const response = await fetch(`${DOMAIN_NAME}/api/contact/`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -86,7 +87,7 @@ export default function Liste_des_messages() {
 
   const handleDelete = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/contact/${id}`, {
+      const response = await fetch(`${DOMAIN_NAME}/api/contact/${id}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -96,7 +97,7 @@ export default function Liste_des_messages() {
       if (!response.ok) {
         throw new Error("message not deleted");
       }
-      setRefresh((prev) => !prev); // Refresh the list after deletion
+      setRefresh((prev) => !prev);
     } catch (error) {
       console.error(error);
     }

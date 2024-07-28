@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FormEvent, useState } from "react";
 import { AlertCircle, X } from "lucide-react";
+import { DOMAIN_NAME } from "@/utils/app_variables";
 
 export default function ContactForm() {
   const [nom, setNom] = useState<string>("");
@@ -33,7 +34,7 @@ export default function ContactForm() {
   
     if (nom && email && message) {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/contact", {
+        const response = await fetch(`${DOMAIN_NAME}/api/contact`, {
           method: "POST",
           headers: {
             "Accept": "application/json",
