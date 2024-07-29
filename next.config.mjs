@@ -4,6 +4,7 @@ const nextConfig = {
         domains: ['127.0.0.1', 'akram.demandealacom.ma'],
 
     },
+    output: 'standalone',
 };
 
 export default nextConfig;
