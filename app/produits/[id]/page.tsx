@@ -7,10 +7,10 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import { DOMAIN_NAME } from "@/utils/app_variables";
 import { LoadingProducts } from "@/components/loadingProducts";
+import { useParams } from 'next/navigation';
 
-export default function Component({ params }: {
-  params: { id: number }
-}) {
+export default function Component() {
+  const params = useParams();
   const id = params.id;
   const [product, setProduct] = useState<Produits | null>(null);
   const [listProduits, setListProduits] = useState<Produits[]>([]);
@@ -41,7 +41,7 @@ export default function Component({ params }: {
 
     const fetchOtherProducts = async () => {
       try {
-        const response = await fetch(`${DOMAIN_NAME}/api/produits/`, {
+        const response = await fetch(`${DOMAIN_NAME}/api/produits`, {
           method: "GET",
           headers: {
             Accept: "application/json",
