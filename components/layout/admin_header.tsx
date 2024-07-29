@@ -28,7 +28,7 @@ export default function Admin_Header() {
                         AK
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end" className="z-20">
                     <DropdownMenuLabel>Mon Compte</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>

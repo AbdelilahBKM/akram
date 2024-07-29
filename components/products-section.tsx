@@ -6,7 +6,8 @@ import { RootState } from "@/store/rootReducer";
 import { Categorie, Produits } from "@/types/Produit";
 import Link from "next/link";
 import { LoadingProducts } from "./loadingProducts";
-import Navigation from "./Navigation";
+import { DOMAIN_NAME } from "@/utils/app_variables";
+
 
 export default function Product_section() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -20,7 +21,8 @@ export default function Product_section() {
     setIsLoading(true);
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/categories', {
+        console.log('Fetching categories...');
+        const response = await fetch(`${DOMAIN_NAME}/api/categories`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -41,7 +43,7 @@ export default function Product_section() {
     const fetchProducts = async () => {
       try {
         console.log('Fetching products...');
-        const response = await fetch('http://127.0.0.1:8000/api/produits', {
+        const response = await fetch(`${DOMAIN_NAME}/api/produits`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -109,7 +111,7 @@ export default function Product_section() {
                 {productsToDisplay.map((produit) => (
                   <div key={produit.id} className="rounded-lg bg-card shadow-md cursor-pointer">
                     <Image
-                      src={'http://127.0.0.1:8000/storage/images/' + produit.image_produits}
+                      src={`${DOMAIN_NAME}/storage/images/${produit.image_produits}`}
                       alt="Product 1"
                       width={400}
                       height={300}

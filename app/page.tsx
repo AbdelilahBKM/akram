@@ -1,4 +1,5 @@
 import About_us from "@/components/about-us";
+import Akram_footer from "@/components/akram_footer";
 import Collections from "@/components/collection-cards";
 import ContactForm from "@/components/Contact-form";
 import HeroSection from "@/components/Hero-section";
@@ -12,21 +13,22 @@ export default function Home() {
       <header className="w-full flex items-center justify-center fixed z-20">
         <Header />
       </header>
-        <section className="w-full" id="hero">
-          <HeroSection />
-        </section>
-        <section className="w-full px-0 py-1" id="collection">
-          <Collections />
-        </section>
-        <section className="w-full px-0 py-16" id="product">
-          <Product_section />
-        </section>
-        <section className="w-full px-0 py-16" id="about-us">
-          <About_us />
-        </section>
-        <section className="w-full px-0 py-16" id="contact">
-          <ContactForm />
-        </section>
+      <section className="w-full" id="hero">
+        <HeroSection />
+      </section>
+      <section className="w-full px-0 py-1" id="collection">
+        <Collections />
+      </section>
+      <section className="w-full px-0 py-16" id="product">
+        <Product_section />
+      </section>
+      <section className="w-full px-0 py-16" id="about-us">
+        <About_us />
+      </section>
+      <section className="w-full px-0 py-16" id="contact">
+        <ContactForm />
+      </section>
+      <Akram_footer />
       <Footer />
     </main>
   );

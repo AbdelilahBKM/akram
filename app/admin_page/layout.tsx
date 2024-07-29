@@ -12,8 +12,11 @@ export default function DashboardLayout({
   return (
     <div className="relative">
       <StoreProvider>
-        <Admin_Header/>
+        <header className="fixed top-0 bg-white w-full shadow  z-10">
+          <Admin_Header/>
+        </header>
         {children}
+          <Footer />
       </StoreProvider>
     </div>
   )

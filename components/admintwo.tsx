@@ -23,6 +23,7 @@ import {
 import { Categorie, Produits } from "@/types/Produit";
 import { RootState } from "@/store/redux";
 import { useSelector } from "react-redux";
+import { DOMAIN_NAME } from "@/utils/app_variables";
 
 export default function Component() {
     const [isProduct, setIsProduct] = useState<boolean>(true);
@@ -38,8 +39,7 @@ export default function Component() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                console.log('Fetching categories...');
-                const response = await fetch('http://127.0.0.1:8000/api/categories', {
+                const response = await fetch(`${DOMAIN_NAME}/api/categories`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -51,7 +51,6 @@ export default function Component() {
                     throw new Error(`Network response was not ok: ${response.statusText}`);
                 }
                 const data = await response.json();
-                console.log('Categories data:', data);
                 setListCategories(data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -60,20 +59,17 @@ export default function Component() {
 
         const fetchProducts = async () => {
             try {
-                console.log('Fetching products...');
-                const response = await fetch('http://127.0.0.1:8000/api/produits', {
+                const response = await fetch(`${DOMAIN_NAME}/api/produits`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${api_token}`
                     }
                 });
-                console.log('Products response:', response);
                 if (!response.ok) {
                     throw new Error(`Network response was not ok: ${response.statusText}`);
                 }
                 const data = await response.json();
-                console.log('Products data:', data);
                 setListProduits(data);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -90,7 +86,7 @@ export default function Component() {
         setDeleteProductId(id);
         if (deleteProductId !== 0) {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/produits/' + deleteProductId,
+                const response = await fetch(`${DOMAIN_NAME}/api/produits/${deleteProductId}`,
                     {
                         method: 'DELETE',
                         headers: {
@@ -102,7 +98,6 @@ export default function Component() {
                 if (!response.ok) {
                     throw new Error('product probably doesnt exist');
                 }
-                console.log('product deleted successfully');
                 setRefresh(prev => !prev);
                 setDeleteProductId(0);
             } catch (error) {
@@ -116,7 +111,7 @@ export default function Component() {
         setDeleteCategorieId(id);
         if (deleteCategorieId !== 0) {
             try {
-                const response = await fetch(`http://localhost:8000/api/categories/${id}`, {
+                const response = await fetch(`${DOMAIN_NAME}/api/categories/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -126,7 +121,6 @@ export default function Component() {
                 if (!response.ok) {
                     throw new Error('La catégorie n\'existe probablement pas');
                 }
-                console.log('Catégorie supprimée avec succès');
                 setRefresh((prev) => !prev);
             } catch (error) {
                 console.error('Erreur lors de la suppression de la catégorie:', error);
@@ -147,8 +141,8 @@ export default function Component() {
     );
 
     return (
-        <div className="flex min-h-screen w-full flex-col bg-muted/40">
-            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-slate-100">
+        <div className="flex min-h-screen w-full flex-col bg-muted/40 py-[125px]">
+            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
                 <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
                     <Tabs defaultValue="products">
                         <div className="flex items-end">
@@ -162,7 +156,7 @@ export default function Component() {
                         </div>
                         {/* produits */}
                         <TabsContent value="products">
-                            <Card className="bg-slate-50" x-chunk="dashboard-06-chunk-0">
+                            <Card className="" x-chunk="dashboard-06-chunk-0">
                                 <CardHeader>
                                     <CardTitle>Vos Produits</CardTitle>
                                     <CardDescription>Gérez vos produits.</CardDescription>
@@ -171,7 +165,7 @@ export default function Component() {
                                             <p>Actualiser</p>
                                             <RefreshCcw className="h-4 w-4" />
                                         </Button>
-                                        <div className="w-1/2 mt-4 bg-slate-50 flex flex-col items-start gap-4">
+                                        <div className="w-1/2 mt-4 flex flex-col items-start gap-4">
                                             <h1>Rechercher un Article Spécifique:</h1>
                                             <Input 
                                                 type="search" 
@@ -201,7 +195,7 @@ export default function Component() {
                                             {filteredProducts.map((prod) => (
                                                 <TableRow key={prod.id}>
                                                     <TableCell>
-                                                        <Image src={`http://127.0.0.1:8000/storage/images/${prod.image_produits}`} alt={prod.nom_produit} width={50} height={50} className="w-20 h-fit rounded-sm" />
+                                                        <Image src={`${DOMAIN_NAME}/storage/images/${prod.image_produits}`} alt={prod.nom_produit} width={50} height={50} className="w-20 h-fit rounded-sm" />
                                                     </TableCell>
                                                     <TableCell className="font-medium">{prod.nom_produit}</TableCell>
                                                     <TableCell>{prod.description}</TableCell>
@@ -321,43 +315,3 @@ export default function Component() {
     );
 }
 
-function MoveVerticalIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <polyline points="8 18 12 22 16 18" />
-            <polyline points="8 6 12 2 16 6" />
-            <line x1="12" x2="12" y1="2" y2="22" />
-        </svg>
-    );
-}
-
-function XIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M18 6 6 18" />
-            <path d="m6 6 12 12" />
-        </svg>
-    );
-}

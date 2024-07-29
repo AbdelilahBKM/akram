@@ -5,7 +5,12 @@ export default function Footer() {
   return (
     <footer className="bg-muted py-6 w-full">
       <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:gap-0">
-        <p className="text-xs text-muted-foreground">&copy; 2024 Akram Ameublement. Av. Palastine, Marrakesh 40000, Morocco</p>
+        <p className="text-base text-muted-foreground">&copy; 2024 Demande à la Com. développé Par  
+          <Link 
+          className="text-base underline hover:text-blue-400 transition-colors"
+          target="_blank"
+          href={"https://hopes-project.vercel.app/"}> Abdelilah</Link>
+          </p>
         <nav className="flex gap-4">
           <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
             <TwitterIcon className="h-5 w-5" />
