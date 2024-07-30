@@ -6,7 +6,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Ghost, RefreshCcw } from 'lucide-react';
-import { JSX, SVGProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -83,10 +82,9 @@ export default function Component() {
     }, [api_token, refresh]);
 
     const handleDeleteProduct = async (id: number) => {
-        setDeleteProductId(id);
-        if (deleteProductId !== 0) {
+        if (id !== 0) {
             try {
-                const response = await fetch(`${DOMAIN_NAME}/api/produits/${deleteProductId}`,
+                const response = await fetch(`${DOMAIN_NAME}/api/produits/${id}`,
                     {
                         method: 'DELETE',
                         headers: {
@@ -108,8 +106,7 @@ export default function Component() {
 
     };
     const handleDeleteCategorie = async (id: number) => {
-        setDeleteCategorieId(id);
-        if (deleteCategorieId !== 0) {
+        if (id !== 0) {
             try {
                 const response = await fetch(`${DOMAIN_NAME}/api/categories/${id}`, {
                     method: 'DELETE',
