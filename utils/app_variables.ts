@@ -1,1 +1,1 @@
-export const DOMAIN_NAME="https://akramapi.akramameublement.com"
+export const DOMAIN_NAME="https://myapi.akramameublement.com"
