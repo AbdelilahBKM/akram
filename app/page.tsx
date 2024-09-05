@@ -29,7 +29,6 @@ export default function Home() {
         <ContactForm />
       </section>
       <Akram_footer />
-      <Footer />
     </main>
   );
 }

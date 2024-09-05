@@ -16,7 +16,6 @@ export default function DashboardLayout({
           <Admin_Header/>
         </header>
         {children}
-          <Footer />
       </StoreProvider>
     </div>
   )

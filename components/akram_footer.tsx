@@ -17,18 +17,18 @@ export default function Akram_footer() {
           </p>
           <div className="text-slate-600 flex items-center gap-2 mb-2">
             <PhoneIcon className="w-5 h-5 text-slate-900" />
-            <span>+212 66124-5588</span>
+            <span>+212 66125-5588</span>
           </div>
           <div className="text-slate-600 flex items-center gap-2 mb-2">
             <MailOpenIcon className="w-5 h-5 text-slate-900" />
-            <span>akram@info.com</span>
+            <span>akramameublement@gmail.com</span>
           </div>
           <Link 
           target="_blank" 
           href={"https://www.google.com/maps/place//data=!4m2!3m1!1s0xdafedd842eafe55:0x97bd5f78fe0b75bc?sa=X&ved=1t:8290&ictx=111"} 
           className="text-slate-600 flex items-center gap-2 hover:text-blue-400 transition-colors">
             <LocateIcon className="w-5 h-5 text-slate-900" />
-            <span>Av. Palastine, Marrakesh 40000, Morocco</span>
+            <span>N 4 Dar Al Bir Wa Al Ihssane-Daoudiate</span>
           </Link>
         </div>  
         <div>

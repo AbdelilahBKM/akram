@@ -143,7 +143,7 @@ export default function Product_section() {
                       {produit.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-base font-semibold text-primary">
+                      <span className="text-base font-semibold text-primary hidden">
                         {produit.prix} MAD
                       </span>
                     </div>

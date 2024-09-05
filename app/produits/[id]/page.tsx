@@ -113,7 +113,7 @@ export default function Component() {
                 <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
               </div>
             </div>
-            <p className="text-2xl font-bold">MAD {product?.prix}</p>
+            <p className="text-2xl font-bold hidden">MAD {product?.prix}</p>
             <p>{product?.description}</p>
           </div>
           <div className="grid gap-2 items-stretch">
@@ -129,7 +129,7 @@ export default function Component() {
               </div>
               <div className="flex justify-between">
                 <span>Prix :</span>
-                <span>{product?.prix} MAD</span>
+                <span className='hidden'>{product?.prix} MAD</span>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@ export default function Component() {
                   </Link>
                   <p className="text-muted-foreground">{prod.description}</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-2xl font-bold">MAD {prod.prix}</p>
+                    <p className="text-2xl font-bold hidden">MAD {prod.prix}</p>
                   </div>
                 </div>
               </div>
